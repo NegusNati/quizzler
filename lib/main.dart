@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'question.dart';
 
 void main() {
   runApp(const MyApp());
@@ -38,16 +39,25 @@ class _QuizzlerState extends State<Quizzler> {
       color: Colors.red,
     ),
   ];
-  List<String> questions = [
-    'Boy you are one tough MF',
-    'is this year our year?',
-    'the Slug\'s color is green',
-  ];
-  List<String> Answers = [
-    'False',
-    'True',
-    'True',
-  ];
+  // List<String> questions = [
+  //   'Boy you are one tough MF',
+  //   'is this year our year?',
+  //   'the Slug\'s color is green',
+  // ];
+  // List<String> Answers = [
+  //   'False',
+  //   'True',
+  //   'True',
+  // ];
+
+  // Question q1 = Question(q:'Boy you are one tough MF',a:false );
+List<Question> questionBank = [
+  Question(q:'Boy you are one tough MF',a:false),
+  Question(q:'is this year our year?',a:true),
+  Question(q:'the Slug\'s color is green',a:true),
+
+];
+
   int questionTracker = 0;
 
   @override
@@ -62,7 +72,7 @@ class _QuizzlerState extends State<Quizzler> {
             padding: const EdgeInsets.all(20.0),
             child: Center(
               child: Text(
-                questions[questionTracker],
+                questionBank[questionTracker].questionText,
                 textAlign: TextAlign.center,
                 style: TextStyle(fontSize: 25, color: Colors.white),
               ),
@@ -78,12 +88,13 @@ class _QuizzlerState extends State<Quizzler> {
                 style: TextStyle(fontSize: 20.0, color: Colors.white),
               ),
               onPressed: () {
-                String correctAnswer = Answers[questionTracker];
-                if(correctAnswer == 'True'){
+                bool correctAnswer = questionBank[questionTracker].questionAnswers;
+                if(correctAnswer == true){
                   print('the user got it right');
                 }else{
                   print('the user got it wrong!');
                 }
+                print(questionTracker);
                 setState(() {
                   
                   questionTracker++;
@@ -102,14 +113,16 @@ class _QuizzlerState extends State<Quizzler> {
             padding: const EdgeInsets.all(15.0),
             child: TextButton(
               onPressed: () {
-                 String correctAnswer = Answers[questionTracker];
-                if(correctAnswer == 'False'){
+                 bool correctAnswer = questionBank[questionTracker].questionAnswers;
+                if(correctAnswer == false){
                   print('the user got it right');
                 }else{
                   print('the user got it wrong!');
                 }
+                print(questionTracker);
                 setState(() {
                   questionTracker++;
+                    print(questionTracker);
                 });
               },
               child: Text(
