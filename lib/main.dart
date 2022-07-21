@@ -41,8 +41,6 @@ class _QuizzlerState extends State<Quizzler> {
     ),
   ];
 
-  int questionTracker = 0;
-
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -55,7 +53,7 @@ class _QuizzlerState extends State<Quizzler> {
             padding: const EdgeInsets.all(20.0),
             child: Center(
               child: Text(
-                newBrain.getQuestions(questionTracker),
+                newBrain.getQuestions(),
                 textAlign: TextAlign.center,
                 style: TextStyle(fontSize: 25, color: Colors.white),
               ),
@@ -71,17 +69,15 @@ class _QuizzlerState extends State<Quizzler> {
                 style: TextStyle(fontSize: 20.0, color: Colors.white),
               ),
               onPressed: () {
-                bool correctAnswer =
-                    newBrain.getAnswers(questionTracker);
+                bool correctAnswer = newBrain.getAnswers();
                 if (correctAnswer == true) {
                   print('the user got it right');
                 } else {
                   print('the user got it wrong!');
                 }
-                print(questionTracker);
+
                 setState(() {
-                  questionTracker++;
-                  print(questionTracker);
+                  newBrain.nextQuestion();
                 });
               },
               style: ButtonStyle(
@@ -95,17 +91,15 @@ class _QuizzlerState extends State<Quizzler> {
             padding: const EdgeInsets.all(15.0),
             child: TextButton(
               onPressed: () {
-                bool correctAnswer =
-                    newBrain.getAnswers(questionTracker);
+                bool correctAnswer = newBrain.getAnswers();
                 if (correctAnswer == false) {
                   print('the user got it right');
                 } else {
                   print('the user got it wrong!');
                 }
-                print(questionTracker);
+
                 setState(() {
-                  questionTracker++;
-                  print(questionTracker);
+                  newBrain.nextQuestion();
                 });
               },
               child: Text(
