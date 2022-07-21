@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:quizzler/quizBrain.dart';
+import 'package:quizzler/quiz_brain.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
+// ignore_for_file: prefer_const_constructors
 
 QuizBrain newBrain = QuizBrain();
 void main() {
@@ -29,24 +30,23 @@ class MyApp extends StatelessWidget {
 }
 
 class Quizzler extends StatefulWidget {
-  Quizzler({Key? key}) : super(key: key);
+  const Quizzler({Key? key}) : super(key: key);
   @override
   State<Quizzler> createState() => _QuizzlerState();
 }
 
 class _QuizzlerState extends State<Quizzler> {
   List<Widget> scoreKeeper = [];
-      int correctUser = 0;
+  int correctUser = 0;
   int incorrectUser = 0;
   void checkAnswer(bool userPickedAnswer) {
-
     bool correctAnswer = newBrain.getAnswers();
 
     int track = newBrain.getNumQuestion();
 
     setState(() {
       if (userPickedAnswer == correctAnswer) {
-         correctUser ++;
+        correctUser++;
         scoreKeeper.add(
           Icon(
             Icons.check,
@@ -54,7 +54,7 @@ class _QuizzlerState extends State<Quizzler> {
           ),
         );
       } else {
-        incorrectUser ++;
+        incorrectUser++;
         scoreKeeper.add(
           Icon(
             Icons.close,
@@ -66,7 +66,8 @@ class _QuizzlerState extends State<Quizzler> {
         Alert(
                 context: context,
                 title: "Congragulation!!",
-                desc: "You have Finished the Quiz, Congrats! you have scored $correctUser correct and $incorrectUser Incorrect Answers from 13 Questions. ")
+                desc:
+                    "You have Finished the Quiz, Congrats! you have scored $correctUser correct and $incorrectUser Incorrect Answers from 13 Questions. ")
             .show();
         scoreKeeper.clear();
       }
@@ -97,15 +98,15 @@ class _QuizzlerState extends State<Quizzler> {
           child: Padding(
             padding: const EdgeInsets.all(15.0),
             child: TextButton(
-              child: Text(
-                'True',
-                style: TextStyle(fontSize: 20.0, color: Colors.white),
-              ),
               onPressed: () {
                 checkAnswer(true);
               },
               style: ButtonStyle(
                 backgroundColor: MaterialStateProperty.all(Colors.green),
+              ),
+              child: Text(
+                'True',
+                style: TextStyle(fontSize: 20.0, color: Colors.white),
               ),
             ),
           ),
@@ -114,15 +115,18 @@ class _QuizzlerState extends State<Quizzler> {
           child: Padding(
             padding: const EdgeInsets.all(15.0),
             child: TextButton(
-              child: Text(
-                'False',
-                style: TextStyle(fontSize: 20.0, color: Colors.white),
-              ),
               onPressed: () {
                 checkAnswer(false);
               },
               style: ButtonStyle(
                   backgroundColor: MaterialStateProperty.all(Colors.red)),
+              child: Text(
+                'False',
+                style: TextStyle(
+                  fontSize: 20.0,
+                  color: Colors.white,
+                ),
+              ),
             ),
           ),
         ),
