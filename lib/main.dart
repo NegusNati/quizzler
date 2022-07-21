@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'question.dart';
+import 'package:quizzler/quizBrain.dart';
 
+QuizBrain newBrain = QuizBrain();
 void main() {
   runApp(const MyApp());
 }
@@ -39,24 +40,6 @@ class _QuizzlerState extends State<Quizzler> {
       color: Colors.red,
     ),
   ];
-  // List<String> questions = [
-  //   'Boy you are one tough MF',
-  //   'is this year our year?',
-  //   'the Slug\'s color is green',
-  // ];
-  // List<String> Answers = [
-  //   'False',
-  //   'True',
-  //   'True',
-  // ];
-
-  // Question q1 = Question(q:'Boy you are one tough MF',a:false );
-List<Question> questionBank = [
-  Question(q:'Boy you are one tough MF',a:false),
-  Question(q:'is this year our year?',a:true),
-  Question(q:'the Slug\'s color is green',a:true),
-
-];
 
   int questionTracker = 0;
 
@@ -72,7 +55,7 @@ List<Question> questionBank = [
             padding: const EdgeInsets.all(20.0),
             child: Center(
               child: Text(
-                questionBank[questionTracker].questionText,
+                newBrain.questionBank[questionTracker].questionText,
                 textAlign: TextAlign.center,
                 style: TextStyle(fontSize: 25, color: Colors.white),
               ),
@@ -88,20 +71,19 @@ List<Question> questionBank = [
                 style: TextStyle(fontSize: 20.0, color: Colors.white),
               ),
               onPressed: () {
-                bool correctAnswer = questionBank[questionTracker].questionAnswers;
-                if(correctAnswer == true){
+                bool correctAnswer =
+                    newBrain.questionBank[questionTracker].questionAnswers;
+                if (correctAnswer == true) {
                   print('the user got it right');
-                }else{
+                } else {
                   print('the user got it wrong!');
                 }
                 print(questionTracker);
                 setState(() {
-                  
                   questionTracker++;
                   print(questionTracker);
                 });
               },
-              
               style: ButtonStyle(
                 backgroundColor: MaterialStateProperty.all(Colors.green),
               ),
@@ -113,16 +95,17 @@ List<Question> questionBank = [
             padding: const EdgeInsets.all(15.0),
             child: TextButton(
               onPressed: () {
-                 bool correctAnswer = questionBank[questionTracker].questionAnswers;
-                if(correctAnswer == false){
+                bool correctAnswer =
+                    newBrain.questionBank[questionTracker].questionAnswers;
+                if (correctAnswer == false) {
                   print('the user got it right');
-                }else{
+                } else {
                   print('the user got it wrong!');
                 }
                 print(questionTracker);
                 setState(() {
                   questionTracker++;
-                    print(questionTracker);
+                  print(questionTracker);
                 });
               },
               child: Text(
