@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:quizzler/quizBrain.dart';
+import 'package:rflutter_alert/rflutter_alert.dart';
 
 QuizBrain newBrain = QuizBrain();
 void main() {
@@ -34,12 +35,44 @@ class Quizzler extends StatefulWidget {
 }
 
 class _QuizzlerState extends State<Quizzler> {
-  List<Widget> scoreKeeper = [
-    Icon(
-      Icons.close,
-      color: Colors.red,
-    ),
-  ];
+  List<Widget> scoreKeeper = [];
+      int correctUser = 0;
+  int incorrectUser = 0;
+  void checkAnswer(bool userPickedAnswer) {
+
+    bool correctAnswer = newBrain.getAnswers();
+
+    int track = newBrain.getNumQuestion();
+
+    setState(() {
+      if (userPickedAnswer == correctAnswer) {
+         correctUser ++;
+        scoreKeeper.add(
+          Icon(
+            Icons.check,
+            color: Colors.green,
+          ),
+        );
+      } else {
+        incorrectUser ++;
+        scoreKeeper.add(
+          Icon(
+            Icons.close,
+            color: Colors.red,
+          ),
+        );
+      }
+      if (track + 1 == 13) {
+        Alert(
+                context: context,
+                title: "Congragulation!!",
+                desc: "You have Finished the Quiz, Congrats! you have scored $correctUser correct and $incorrectUser Incorrect Answers from 13 Questions. ")
+            .show();
+        scoreKeeper.clear();
+      }
+      newBrain.nextQuestion();
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -69,16 +102,7 @@ class _QuizzlerState extends State<Quizzler> {
                 style: TextStyle(fontSize: 20.0, color: Colors.white),
               ),
               onPressed: () {
-                bool correctAnswer = newBrain.getAnswers();
-                if (correctAnswer == true) {
-                  print('the user got it right');
-                } else {
-                  print('the user got it wrong!');
-                }
-
-                setState(() {
-                  newBrain.nextQuestion();
-                });
+                checkAnswer(true);
               },
               style: ButtonStyle(
                 backgroundColor: MaterialStateProperty.all(Colors.green),
@@ -90,22 +114,13 @@ class _QuizzlerState extends State<Quizzler> {
           child: Padding(
             padding: const EdgeInsets.all(15.0),
             child: TextButton(
-              onPressed: () {
-                bool correctAnswer = newBrain.getAnswers();
-                if (correctAnswer == false) {
-                  print('the user got it right');
-                } else {
-                  print('the user got it wrong!');
-                }
-
-                setState(() {
-                  newBrain.nextQuestion();
-                });
-              },
               child: Text(
                 'False',
                 style: TextStyle(fontSize: 20.0, color: Colors.white),
               ),
+              onPressed: () {
+                checkAnswer(false);
+              },
               style: ButtonStyle(
                   backgroundColor: MaterialStateProperty.all(Colors.red)),
             ),

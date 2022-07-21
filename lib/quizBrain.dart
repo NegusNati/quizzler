@@ -34,6 +34,8 @@ class QuizBrain {
   void nextQuestion() {
     if (_questionTracker < _questionBank.length - 1) {
       _questionTracker++;
+    }else{
+      _questionTracker = 0;
     }
   }
 
@@ -43,5 +45,8 @@ class QuizBrain {
 
   bool getAnswers() {
     return _questionBank[_questionTracker].questionAnswers;
+  }
+  int getNumQuestion (){
+    return _questionTracker;
   }
 }
