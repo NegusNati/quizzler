@@ -1,7 +1,7 @@
 import 'question.dart';
 
 class QuizBrain {
-  List<Question> questionBank = [
+  final List<Question>  _questionBank =  [
     Question('Some cats are actually allergic to humans', true),
     Question('You can lead a cow down stairs but not up stairs.', false),
     Question('Approximately one quarter of human bones are in the feet.', true),
@@ -28,4 +28,12 @@ class QuizBrain {
         'In West Virginia, USA, if you accidentally hit an animal with your car, you are free to take it home to eat.',
         true),
   ];
+
+  String getQuestions(int questionTracker){
+    return _questionBank[questionTracker].questionText;
+  }
+  bool getAnswers(int questionTracker){
+    return _questionBank[questionTracker].questionAnswers;
+  }
+
 }

@@ -55,7 +55,7 @@ class _QuizzlerState extends State<Quizzler> {
             padding: const EdgeInsets.all(20.0),
             child: Center(
               child: Text(
-                newBrain.questionBank[questionTracker].questionText,
+                newBrain.getQuestions(questionTracker),
                 textAlign: TextAlign.center,
                 style: TextStyle(fontSize: 25, color: Colors.white),
               ),
@@ -72,7 +72,7 @@ class _QuizzlerState extends State<Quizzler> {
               ),
               onPressed: () {
                 bool correctAnswer =
-                    newBrain.questionBank[questionTracker].questionAnswers;
+                    newBrain.getAnswers(questionTracker);
                 if (correctAnswer == true) {
                   print('the user got it right');
                 } else {
@@ -96,7 +96,7 @@ class _QuizzlerState extends State<Quizzler> {
             child: TextButton(
               onPressed: () {
                 bool correctAnswer =
-                    newBrain.questionBank[questionTracker].questionAnswers;
+                    newBrain.getAnswers(questionTracker);
                 if (correctAnswer == false) {
                   print('the user got it right');
                 } else {
